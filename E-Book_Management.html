@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>E-Book Store </title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: Arial, sans-serif;
+}
+
+body{
+    background:#f2f2f2;
+}
+
+/* Header */
+.header{
+    background:#333;
+    color:white;
+    padding:15px;
+    text-align:center;
+    font-size:22px;
+    font-weight:bold;
+}
+
+/* Layout */
+.container{
+    display:flex;
+    min-height:100vh;
+}
+
+/* Sidebar */
+.sidebar{
+    width:220px;
+    background:#222;
+    color:white;
+}
+
+.sidebar ul{
+    list-style:none;
+}
+
+.sidebar ul li{
+    padding:15px 20px;
+    cursor:pointer;
+    border-bottom:1px solid #333;
+}
+
+.sidebar ul li:hover{
+    background:#444;
+}
+
+/* Content */
+.content{
+    flex:1;
+    padding:40px;
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+}
+
+/* Sections */
+.section{
+    display:none;
+    width:650px;
+}
+
+/* Card */
+.card{
+    background:white;
+    padding:30px;
+    border-radius:8px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.2);
+}
+
+h2{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+/* Inputs */
+input, textarea{
+    width:100%;
+    padding:10px;
+    margin-bottom:15px;
+    border:1px solid #ccc;
+    border-radius:4px;
+}
+
+textarea{
+    resize:none;
+}
+
+/* Form Groups */
+.form-group{
+    margin-bottom:15px;
+}
+
+.inline-options{
+    display:flex;
+    gap:20px;
+    margin-top:8px;
+}
+
+/* Buttons */
+button{
+    width:100%;
+    padding:15px;
+    font-size:16px;
+    background:#555;
+    color:white;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#333;
+}
+
+/* Table */
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th, td{
+    border:1px solid #ccc;
+    padding:8px;
+    text-align:center;
+}
+
+th{
+    background:#eee;
+}
+
+.total{
+    text-align:right;
+    margin-top:10px;
+    font-weight:bold;
+}
+
+/* Responsive */
+@media(max-width:768px){
+    .container{
+        flex-direction:column;
+    }
+
+    .sidebar{
+        width:100%;
+    }
+
+    .section{
+        width:100%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="header">E-BOOK STORE</div>
+<div class="header">WELCOME 24WH1A05A7</div>
+
+<div class="container">
+
+<!-- Sidebar -->
+<div class="sidebar">
+<ul>
+<li onclick="showSection('register')">REGISTRATION</li>
+<li onclick="showSection('login')">LOGIN</li>
+<li onclick="showSection('catalog')">CATALOG</li>
+<li onclick="showSection('cart')">CART</li>
+</ul>
+</div>
+
+<div class="content">
+
+<!-- Registration -->
+<div id="register" class="section card">
+<h2>Create Account</h2>
+
+<input type="text" placeholder="Username">
+<input type="password" placeholder="Password">
+<input type="email" placeholder="Email">
+<input type="text" placeholder="Phone Number">
+<textarea placeholder="Address" rows="3"></textarea>
+
+<div class="form-group">
+<label>Gender:</label>
+<div class="inline-options">
+<label><input type="radio" name="gender"> Male</label>
+<label><input type="radio" name="gender"> Female</label>
+<label><input type="radio" name="gender"> Other</label>
+</div>
+</div>
+
+<div class="form-group">
+<label>Skills:</label>
+<div class="inline-options">
+<label><input type="checkbox"> HTML</label>
+<label><input type="checkbox"> CSS</label>
+<label><input type="checkbox"> JavaScript</label>
+</div>
+</div>
+
+<button>Register</button>
+</div>
+
+<!-- Login -->
+<div id="login" class="section card">
+<h2>Login</h2>
+<input type="text" placeholder="Username">
+<input type="password" placeholder="Password">
+<button>Login</button>
+</div>
+
+<!-- Catalog -->
+<div id="catalog" class="section card">
+<h2>Book Catalog</h2>
+
+<table>
+<tr>
+<th>Book</th>
+<th>Price</th>
+<th>Action</th>
+</tr>
+
+<tr>
+<td>Web Development</td>
+<td>500</td>
+<td><button onclick="addToCart('Web Development',500)">Add</button></td>
+</tr>
+
+<tr>
+<td>Data Structures</td>
+<td>400</td>
+<td><button onclick="addToCart('Data Structures',400)">Add</button></td>
+</tr>
+
+<tr>
+<td>Java Programming</td>
+<td>600</td>
+<td><button onclick="addToCart('Java Programming',600)">Add</button></td>
+</tr>
+
+</table>
+</div>
+
+<!-- Cart -->
+<div id="cart" class="section card">
+<h2>Your Cart</h2>
+
+<table id="cartTable">
+<tr>
+<th>Book</th>
+<th>Price</th>
+<th>Qty</th>
+<th>Total</th>
+<th>Remove</th>
+</tr>
+</table>
+
+<div class="total" id="grandTotal">
+Grand Total: 0
+</div>
+
+</div>
+
+</div>
+</div>
+
+<script>
+let cart = [];
+
+function showSection(id){
+    document.querySelectorAll('.section').forEach(sec=>{
+        sec.style.display="none";
+    });
+    document.getElementById(id).style.display="block";
+}
+
+showSection('register');
+
+function addToCart(name, price){
+    let existing = cart.find(item => item.name === name);
+
+    if(existing){
+        existing.qty++;
+    } else {
+        cart.push({name:name, price:price, qty:1});
+    }
+
+    updateCart();
+}
+
+function removeItem(name){
+    cart = cart.filter(item => item.name !== name);
+    updateCart();
+}
+
+function updateCart(){
+    let table = document.getElementById("cartTable");
+
+    table.innerHTML = `
+    <tr>
+    <th>Book</th>
+    <th>Price</th>
+    <th>Qty</th>
+    <th>Total</th>
+    <th>Remove</th>
+    </tr>`;
+
+    let grandTotal = 0;
+
+    cart.forEach(item=>{
+        let total = item.price * item.qty;
+        grandTotal += total;
+
+        table.innerHTML += `
+        <tr>
+        <td>${item.name}</td>
+        <td>${item.price}</td>
+        <td>${item.qty}</td>
+        <td>${total}</td>
+        <td><button onclick="removeItem('${item.name}')">X</button></td>
+        </tr>`;
+    });
+
+    document.getElementById("grandTotal").innerText =
+    "Grand Total: " + grandTotal;
+}
+</script>
+
+</body>
+</html>

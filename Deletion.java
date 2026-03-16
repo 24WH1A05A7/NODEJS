@@ -25,7 +25,7 @@ public class Deletion {
         	Statement statement = connection.createStatement();
         	
         	//step 4: execute query
-	        int number = statement.executeUpdate("DELETE from Employee where Eid = 110");
+	        int number = statement.executeUpdate("DELETE from Employee where Eid = 109");
 	        System.out.println("Number of records updated: " + number);
 	        
             ResultSet rs = statement.executeQuery("SELECT * FROM Employee");

@@ -1,0 +1,161 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: Arial, sans-serif;
+}
+
+body{
+    background:#f2f2f2;
+}
+
+/* Header */
+.header{
+    background:#333;
+    color:white;
+    padding:15px;
+    text-align:center;
+    padding:22px 10px;
+}
+
+.header h1{
+    font-size:24px;
+    margin-bottom:5px;
+}
+
+.header p{
+    font-size:18px;
+    font-weight:bold;
+}
+
+/* Layout */
+.container{
+    display:flex;
+    min-height:100vh;
+}
+
+/* Sidebar */
+.sidebar{
+    width:220px;
+    background:#222;
+    color:white;
+}
+
+.sidebar ul{
+    list-style:none;
+}
+
+.sidebar ul li{
+    padding:15px 20px;
+    cursor:pointer;
+    border-bottom:1px solid #333;
+}
+
+.sidebar ul li a{
+    color:white;
+    text-decoration:none;
+}
+
+.sidebar ul li:hover{
+    background:#444;
+}
+
+/* Content */
+.content{
+    flex:1;
+    padding:40px;
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+}
+
+/* Card */
+.card{
+    background:white;
+    padding:30px;
+    border-radius:8px;
+    box-shadow:0 5px 15px rgba(0,0,0,0.2);
+    width:650px;
+}
+
+h2{
+    text-align:center;
+    margin-bottom:20px;
+}
+
+/* Inputs */
+input, textarea{
+    width:100%;
+    padding:10px;
+    margin-bottom:15px;
+    border:1px solid #ccc;
+    border-radius:4px;
+}
+
+textarea{
+    resize:none;
+}
+
+/* Form Groups */
+.form-group{
+    margin-bottom:15px;
+}
+
+.inline-options{
+    display:flex;
+    gap:20px;
+    margin-top:8px;
+}
+
+/* Buttons */
+button{
+    width:100%;
+    padding:15px;
+    font-size:16px;
+    background:#555;
+    color:white;
+    border:none;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#333;
+}
+
+/* Table */
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th, td{
+    border:1px solid #ccc;
+    padding:8px;
+    text-align:center;
+}
+
+th{
+    background:#eee;
+}
+
+.total{
+    text-align:right;
+    margin-top:10px;
+    font-weight:bold;
+}
+
+/* Responsive */
+@media(max-width:768px){
+    .container{
+        flex-direction:column;
+    }
+
+    .sidebar{
+        width:100%;
+    }
+
+    .card{
+        width:100%;
+    }
+}
